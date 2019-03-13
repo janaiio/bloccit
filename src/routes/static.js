@@ -4,7 +4,6 @@ const staticController = require("../controllers/staticController");
 
 router.get("/", staticController.index);
 
-router.get("/marco", staticController.index);
 /*
 router.get("/", (req, res, next) => {
 
