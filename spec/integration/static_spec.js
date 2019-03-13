@@ -16,7 +16,7 @@ describe("routes : static", () => {
 
   });
 
-/*
+
   describe("GET /about", () => {
     it("should return status code 200 and should contain the string 'About Us'", (done) => {
       request.get(base, (err, res, body) => {
@@ -26,6 +26,6 @@ describe("routes : static", () => {
       });
     });
   });
-*/
+
 
 });
