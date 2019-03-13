@@ -18,28 +18,13 @@ describe("routes : static", () => {
 
   });
 
-<<<<<<< HEAD
-
   describe("GET /marco", () => {
-    it("should return status code 200", (done) => {
-      request.get(base, (err, res, body) => {
+    it("should return status code 200 and should contain the string 'polo'", (done) => {
+      request.get("/marco"), (err, res, body) => {
         expect(res.statusCode).toBe(200);
         expect(body).toContain("polo");
         done();
-      });
+      };
     });
-
-=======
-  describe("GET /marco", () => {
-    it("should return status code 200 and should contain the string 'polo'", (done) => {
-      request.get("/marco", (err, res, body) => {
-        expect(res.statusCode).toBe(200);
-        expect(body).toContain("polo");
-      done();
-      });
-    });
->>>>>>> checkpoint-2-introToExpress
   });
-
-
 });
