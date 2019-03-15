@@ -39,9 +39,13 @@ module.exports = {
       where: {id}
     })
     .then((advertisement) => {
+      console.log("Advertisement Deleted");
       callback(null, advertisement);
     })
     .catch((err) => {
+      console.log("DEBUG: ERROR - deleteAdvertisement");
+      console.log(err);
+      console.log("-----------\n\n");
       callback(err);
     })
   }
