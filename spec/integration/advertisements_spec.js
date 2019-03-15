@@ -40,5 +40,70 @@ describe("routes : advertisements", () => {
         });
       });
 
+      describe("GET /advertisements/new", () => {
+       it("should render a new advertisement form", (done) => {
+         request.get(`${base}new`, (err, res, body) => {
+           expect(err).toBeNull();
+           expect(body).toContain("New Advertisement");
+           done();
+         });
+       });
+     });
+
+     describe("GET /advertisements/:id", () => {
+      it("should render a view with the selected advertisement", (done) => {
+        request.get(`${base}${this.advertisement.id}`, (err, res, body) => {
+          expect(err).toBeNull();
+          expect(body).toContain("JS Frameworks");
+          done();
+        });
+      });
+    });
+
+     describe("POST /advertisements/create", () => {
+        const options = {
+          url: `${base}create`,
+          form: {
+            title: "blink-182 songs",
+            description: "What's your favorite blink-182 song?"
+          }
+        };
+
+        it("should create a new advertisement and redirect", (done) => {
+          request.post(options, (err, res, body) => {
+              Advertisement.findOne({where: {title: "blink-182 songs"}})
+              .then((advertisement) => {
+                expect(res.statusCode).toBe(303);
+                expect(advertisement.title).toBe("blink-182 songs");
+                expect(advertisement.description).toBe("What's your favorite blink-182 song?");
+                done();
+              })
+              .catch((err) => {
+                console.log(err);
+                done();
+              });
+            }
+          );
+        });
+      });
+
+      describe("POST /advertisements/:id/destroy", () => {
+        it("should delete the advertisement with the associated ID", (done) => {
+          Advertisement.all()
+          .then((advertisements) => {
+            const advertisementCountBeforeDelete = advertisements.length;
+            expect(advertisementCountBeforeDelete).toBe(1);
+            request.post(`${base}${this.advertisement.id}/destroy`, (err, res, body) => {
+              Advertisement.all()
+              .then((advertisements) => {
+                expect(err).toBeNull();
+                expect(advertisements.length).toBe(advertisementCountBeforeDelete - 1);
+                done();
+              })
+            });
+          });
+        });
+      });
+      
 
     });
