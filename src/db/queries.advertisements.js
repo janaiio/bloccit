@@ -39,15 +39,30 @@ module.exports = {
       where: {id}
     })
     .then((advertisement) => {
-      console.log("Advertisement Deleted");
       callback(null, advertisement);
     })
     .catch((err) => {
-      console.log("DEBUG: ERROR - deleteAdvertisement");
-      console.log(err);
-      console.log("-----------\n\n");
       callback(err);
     })
+  },
+
+  updateAdvertisement(id, updatedAdvertisement, callback){
+    return Advertisement.findById(id)
+    .then((advertisement) => {
+      if(!advertisement){
+        return callback("Advertisement not found");
+      }
+
+      advertisement.update(updatedAdvertisement, {
+        fields: Object.keys(updatedAdvertisement)
+      })
+      .then(() => {
+        callback(null, advertisement);
+      })
+      .catch((err) => {
+        callback(err);
+      });
+    });
   }
 
 }
